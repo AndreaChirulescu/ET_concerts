@@ -1,0 +1,35 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+run this in your terminal to create user, remember password to set it up in your database.yml file
+	createuser ET_concerts --createdb --pwprompt --login --superuser
+
+* Database initialization
+run this in your terminal to create databases
+rake db:create
+then create tables
+rake db:migrate
+
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
