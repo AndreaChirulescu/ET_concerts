@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>Countries</h1>
+</div>
+<div class="row">
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Alpha2</th>
+      <th>Alpha3</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @countries.each do |country| %>
+        <tr>
+          <td><%= country.name %></td>
+          <td><%= country.alpha2 %></td>
+          <td><%= country.alpha3 %></td>
+          <td>
+            <%= link_to edit_country_path(country.id), class: "btn btn-lg btn-md btn-sm btn-warning" do %>
+              <i class="fa fa-pencil-square-o">&nbsp;Edit</i>
+            <% end %>
+            <%= link_to country_path(country), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-lg btn-md btn-sm btn-danger" do %>
+            <i class="fa fa-trash">&nbsp;Delete</i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>
+<div class="row">
+  <%= link_to new_country_path, class: "btn btn-lg btn-md btn-sm btn-primary" do %>
+    <i class="fa fa-plus-circle"> New country</i>
+  <% end %>
+</div>
+

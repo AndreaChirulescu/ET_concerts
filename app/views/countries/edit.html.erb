@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h1>Edit Country</h1>
+</div>
+<div class="row col-lg-12">
+  <%= form_for(@country, :url => {:action => 'edit'}) do |f| %>    
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    
+    <%= link_to "Back", :back, class: 'btn btn-default' %>
+    <%= f.submit "Update", class: 'btn btn-primary' %>
+  <% end %>
+</div>
