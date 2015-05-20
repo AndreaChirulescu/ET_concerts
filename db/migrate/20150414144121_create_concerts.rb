@@ -3,11 +3,10 @@ class CreateConcerts < ActiveRecord::Migration
     create_table :concerts do |t|
       t.integer :venue_id
       t.date :on_date
-      t.text :text1
-      t.text :text2
-      t.text :interview
+      t.integer :text1
+      t.integer :text2
+      t.integer :interview
       t.integer :photo_status_id
-      t.integer :text_status_id
       t.integer :status_id
 
       t.timestamps null: false

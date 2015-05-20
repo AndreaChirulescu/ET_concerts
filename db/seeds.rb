@@ -9,9 +9,9 @@ countries = Country.create([{name: 'United States of America', alpha2: '', alpha
 						   {name: 'Norway', alpha2: '', alpha3: ''},
 						   {name: 'England', alpha2: '', alpha3: ''}])
 
-bands = Band.create([{name: 'Motorhead', country_id: countries.last },
-					 {name: 'Iron Maiden', country_id: countries.last},
-					 {name: 'Lamb of God', country_id: countries.first}])
+bands = Band.create([{name: 'Motorhead', country_id: countries.last.id },
+					 {name: 'Iron Maiden', country_id: countries.last.id},
+					 {name: 'Lamb of God', country_id: countries.first.id}])
 
 statuses = Status.create([{name: "Accred. requested", color: "yellow"},{name: "Photo Approved", color:"green"},
 					  {name: "Text Approved", color:"green"},{name: "Photo and Text approved", color:"green"},
@@ -22,7 +22,11 @@ venues = Venue.create([{name: "MetalFest", city: "London"}, {name: "Festival", c
 	{name: "Venue 1", city: "London"},{name: "Venue 2", city: "London"},
 	{name: "Venue 3", city: "London"},{name: "Venue 4", city: "Manchester"}])
 
-#concerts concert_bands venue_concerts
+concerts = Concert.create([ {venue_id: venues.first.id, on_date: Date.today + 20.days, status_id: statuses.first.id },
+	{venue_id: venues.first.id, on_date: Date.today + 45.days, status_id: statuses.first.id },
+	{venue_id: venues.last.id, on_date: Date.today + 50.days, status_id: statuses.last.id}])
+
+#concert_bands venue_concerts
 
 
 
