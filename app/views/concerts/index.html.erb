@@ -21,7 +21,7 @@
     </thead>
     <tbody>
     <% @concerts.each do |con| %>
-      <tr>
+      <tr id="<%= con.id %>">
         <td><%= con.venue.name %><%#= link_to "Edit", edit_concert_path(con), class: "btn btn-sm btn-default" %></td>
         <td><%= con.on_date %></td>
         <td>
@@ -31,7 +31,7 @@
             <%= User.find(con.photo1).email %>
           <% end %>
         </td>
-        <td>
+        <td class="text-center">
           <% if con.photo2.nil? %>
             <%= link_to "Available", "#", class: "available photo2" %>
           <% else %>

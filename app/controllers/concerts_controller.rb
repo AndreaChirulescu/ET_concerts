@@ -1,4 +1,5 @@
 class ConcertsController < ApplicationController
+  before_filter :authenticate_user!
   def index
   	@concerts = Concert.sorted.paginate(per_page: 10, page: params[:page])
   end
@@ -31,6 +32,28 @@ class ConcertsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def update_photo_1
+    @concert = Concert.find(params[:id])
+    @concert.photo1 = current_user
+    if @concert.save
+      render json: {sucess: true, message: current_user.email}
+    else
+      render json: {success: false, errors: @concert.errors }
+    end
+  end
+
+  def update_photo_2
+  end
+
+  def update_text_1
+  end
+
+  def update_text_2
+  end
+
+  def update_interview
   end
 
   def destroy
