@@ -24,35 +24,51 @@
       <tr id="<%= con.id %>">
         <td><%= con.venue.name %><%#= link_to "Edit", edit_concert_path(con), class: "btn btn-sm btn-default" %></td>
         <td><%= con.on_date %></td>
-        <td>
+        <td id="photo1" class="text-center">
           <% if con.photo1.nil? %>
+            <% if [con.photo2, con.text1, con.text2].include? current_user.id %>
+              <i class="fa fa-times"></i>
+            <% else %>
             <%= link_to "Available", "#", class: "available photo1" %>
+            <% end %>
           <% else %>
             <%= User.find(con.photo1).email %>
           <% end %>
         </td>
-        <td class="text-center">
+        <td id="photo2" class="text-center">
           <% if con.photo2.nil? %>
-            <%= link_to "Available", "#", class: "available photo2" %>
+            <% if [con.photo1, con.text1, con.text2].include? current_user.id %>
+              <i class="fa fa-times"></i>
+            <% else %>
+              <%= link_to "Available", "#", class: "available photo2" %>
+            <% end %>
           <% else %>
             <%= User.find(con.photo2).email %>
           <% end %>
         </td>
-        <td>
+        <td id="text1" class="text-center">
           <% if con.text1.nil? %>
+            <% if [con.photo1, con.photo2, con.text2].include? current_user.id %>
+              <i class="fa fa-times"></i>
+            <% else %>
             <%= link_to "Available", "#", class: "available text1" %>
+            <% end %>
           <% else %>
             <%= User.find(con.text1).email %>
           <% end %>
         </td>
-        <td>
+        <td id="text2" class="text-center">
           <% if con.text2.nil? %>
+            <% if [con.photo1, con.photo2, con.text1].include? current_user.id %>
+              <i class="fa fa-times"></i>
+            <% else %>
             <%= link_to "Available", "#", class: "available text2" %>
+            <% end %>
           <% else %>
             <%= User.find(con.photo2).email %>
           <% end %>
         </td>
-        <td>
+        <td id="interview" class="text-center">
           <% if con.interview.nil? %>
             <%= link_to "Available", "#", class: "available interview" %>
           <% else %>
@@ -63,7 +79,7 @@
         <td><% con.bands.each do |b| %>
           <%= b.name  %><%= "," unless con.bands.last %>
           <% end %></td>
-        <td class="text-center"><span class="status" style="background:<%= con.status.color %>;"><%= con.status.name %></span></td>
+        <td class="text-center"><span class="status badge" style="background:<%= con.status.color %>;"><%= con.status.name %></span></td>
         <% if current_user %>
         <td>
           <%= link_to edit_concert_path(con.id), class: "btn btn-sm btn-warning" do %>
