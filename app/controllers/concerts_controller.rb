@@ -1,7 +1,7 @@
 class ConcertsController < ApplicationController
   before_filter :authenticate_user!
   def index
-  	@concerts = Concert.sorted.paginate(per_page: 10, page: params[:page])
+  	@concerts = Concert.filter(params.slice(:ordered, :status)).paginate(per_page: 10, page: params[:page])
   end
 
   def new
@@ -92,5 +92,9 @@ class ConcertsController < ApplicationController
   private
   def concert_params
   	params.require(:country).permit(:name, :alpha2, :alpha3, :photo1, :photo2, :text1, :text2)
+  end
+
+  def filtering_params(params)
+    params.slice(:sorted, :status)
   end
 end

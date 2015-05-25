@@ -19,12 +19,14 @@
 
 class Concert < ActiveRecord::Base
   #attr_accessible :bands_concerts
+  include Filterable
 
   has_and_belongs_to_many :bands, through: :bands_concerts
   belongs_to :venue
   belongs_to :status
 
   scope :sorted, -> { where("on_date >= ?", Date.today).order(on_date: "desc") }
+  scope :status, -> (status_id) {where status_id: status_id }
 
 
 

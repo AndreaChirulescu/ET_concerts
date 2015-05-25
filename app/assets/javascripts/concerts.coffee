@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  # tooltips
+  $('i.icon').popover 'trigger': 'hover'
+
   $("a.photo1").click ->
     id = $(this).parent().parent().attr("id");
     $.post '/update_photo_1/' + id, (data) ->

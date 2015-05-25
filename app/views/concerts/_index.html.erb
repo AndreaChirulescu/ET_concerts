@@ -1,0 +1,94 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Venue</th>
+      <th>On date</th>
+      <th>Photo1</th>
+      <th>Photo2</th>
+      <th>Text1</th>
+      <th>Text2</th>
+      <th>Interview</th>
+      <th>Band(s)</th>
+      <th class="text-center">Status</th>
+      <% if current_user %>
+        <th>Actions</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% @concerts.each do |con| %>
+    <tr id="<%= con.id %>">
+      <td><%= con.venue.name %><%#= link_to "Edit", edit_concert_path(con), class: "btn btn-sm btn-default" %></td>
+      <td><%= con.on_date %></td>
+      <td id="photo1" class="text-center">
+        <% if con.photo1.nil? %>
+          <% if [con.photo2, con.text1, con.text2].include? current_user.id %>
+            <i class="fa fa-times"></i>
+          <% else %>
+          <%= link_to "Available", "#", class: "available photo1" %>
+          <% end %>
+        <% else %>
+          <i class="icon fa fa-user" data-content="<%= User.find(con.photo1).email %>"></i>
+        <% end %>
+      </td>
+      <td id="photo2" class="text-center">
+        <% if con.photo2.nil? %>
+          <% if [con.photo1, con.text1, con.text2].include? current_user.id %>
+            <i class="fa fa-times"></i>
+          <% else %>
+            <%= link_to "Available", "#", class: "available photo2" %>
+          <% end %>
+        <% else %>
+        <i class="icon fa fa-user" data-content="<%= User.find(con.photo2).email %>"></i>
+        <% end %>
+      </td>
+      <td id="text1" class="text-center">
+        <% if con.text1.nil? %>
+          <% if [con.photo1, con.photo2, con.text2].include? current_user.id %>
+            <i class="fa fa-times"></i>
+          <% else %>
+          <%= link_to "Available", "#", class: "available text1" %>
+          <% end %>
+        <% else %>
+        <i class="icon fa fa-user" data-content="<%= User.find(con.text1).email %>"></i>
+        <% end %>
+      </td>
+      <td id="text2" class="text-center">
+        <% if con.text2.nil? %>
+          <% if [con.photo1, con.photo2, con.text1].include? current_user.id %>
+            <i class="fa fa-times"></i>
+          <% else %>
+          <%= link_to "Available", "#", class: "available text2" %>
+          <% end %>
+        <% else %>
+        <i class="icon fa fa-user" data-content="<%= User.find(con.text2).email %>"></i>
+        <% end %>
+      </td>
+      <td id="interview" class="text-center">
+        <% if con.interview.nil? %>
+          <%= link_to "Available", "#", class: "available interview" %>
+        <% else %>
+        <i class="icon fa fa-user" data-content="<%= User.find(con.interview).email %>"></i>          
+        <% end %>
+      </td>
+
+      <td><% con.bands.each do |b| %>
+        <%= b.name  %><%= "," unless con.bands.last %>
+        <% end %></td>
+      <td class="text-center"><span class="status badge" style="background:<%= con.status.color %>;"><%= con.status.name %></span></td>
+      <% if current_user %>
+      <td>
+        <%= link_to edit_concert_path(con.id), class: "btn btn-sm btn-warning" do %>
+          <i class="fa fa-pencil-square-o">&nbsp;Edit</i>
+        <% end %>
+        <% if current_user.admin? %>
+          <%= link_to concert_path(con.id), method: :delete, class: "btn btn-sm btn-danger" do %>
+            <i class="fa fa-trash-o">&nbsp;Delete</i>
+          <% end %>
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
