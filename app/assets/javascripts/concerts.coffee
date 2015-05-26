@@ -5,6 +5,9 @@ $ ->
   # tooltips
   $('i.icon').popover 'trigger': 'hover'
 
+  $('select').selectize()
+  return
+
   $("a.photo1").click ->
     id = $(this).parent().parent().attr("id");
     $.post '/update_photo_1/' + id, (data) ->

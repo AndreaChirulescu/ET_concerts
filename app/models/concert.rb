@@ -26,7 +26,6 @@ class Concert < ActiveRecord::Base
   belongs_to :status
 
   scope :sorted, -> { where("on_date >= ?", Date.today).order(on_date: "desc") }
-  scope :status, -> (status_id) {where status_id: status_id }
 
 
 

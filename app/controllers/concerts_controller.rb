@@ -1,7 +1,8 @@
 class ConcertsController < ApplicationController
   before_filter :authenticate_user!
   def index
-  	@concerts = Concert.filter(params.slice(:ordered, :status)).paginate(per_page: 10, page: params[:page])
+    @q = Concert.sorted.ransack(params[:q])
+  	@concerts = @q.result.includes(:venue, :status).paginate(per_page: 10, page: params[:page])
   end
 
   def new
@@ -36,10 +37,18 @@ class ConcertsController < ApplicationController
   def update_photo_1
     @concert = Concert.find(params[:id])
     @concert.photo1 = current_user.id
-    if @concert.save
-      render json: {sucess: true, message: current_user.email}
-    else
-      render json: {success: false, errors: @concert.errors }
+    @concert.save
+    respond_to do |format|
+      format.js
+    end    
+  end
+
+  def destroy_photo_1
+    @concert = Concert.find(params[:id])
+    @concert.photo1 = nil
+    @concert.save
+    respond_to do |format|
+      format.js
     end
   end
 
