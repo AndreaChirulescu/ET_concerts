@@ -1,5 +1,5 @@
 <% if @concert.errors.any? %>
 alert("wrong")
 <% else %>
-$("tr#"+<%= params[:id] %>).html("<%= escape_javascript(render partial: 'concerts/item', object: @concert) %>");
+  $("tr#"+<%= params[:id] %>).replaceWith("<%= escape_javascript(render partial: 'concerts/item', object: @concert) %>");
 <% end %>

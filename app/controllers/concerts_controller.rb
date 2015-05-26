@@ -40,7 +40,7 @@ class ConcertsController < ApplicationController
     @concert.save
     respond_to do |format|
       format.js
-    end    
+    end
   end
 
   def destroy_photo_1
@@ -55,40 +55,72 @@ class ConcertsController < ApplicationController
   def update_photo_2
     @concert = Concert.find(params[:id])
     @concert.photo2 = current_user.id
-    if @concert.save
-      render json: {sucess: true, message: current_user.email}
-    else
-      render json: {success: false, errors: @concert.errors }
+    @concert.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_photo_2
+    @concert = Concert.find(params[:id])
+    @concert.photo2 = nil
+    @concert.save
+    respond_to do |format|
+      format.js
     end
   end
 
   def update_text_1
     @concert = Concert.find(params[:id])
     @concert.text1 = current_user.id
-    if @concert.save
-      render json: {sucess: true, message: current_user.email}
-    else
-      render json: {success: false, errors: @concert.errors }
+    @concert.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_text_1
+    @concert = Concert.find(params[:id])
+    @concert.text1 = nil
+    @concert.save
+    respond_to do |format|
+      format.js
     end
   end
 
   def update_text_2
     @concert = Concert.find(params[:id])
     @concert.text2 = current_user.id
-    if @concert.save
-      render json: {sucess: true, message: current_user.email}
-    else
-      render json: {success: false, errors: @concert.errors }
+    @concert.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_text_2
+    @concert = Concert.find(params[:id])
+    @concert.text2 = nil
+    @concert.save
+    respond_to do |format|
+      format.js
     end
   end
 
   def update_interview
     @concert = Concert.find(params[:id])
     @concert.interview = current_user.id
-    if @concert.save
-      render json: {sucess: true, message: current_user.email}
-    else
-      render json: {success: false, errors: @concert.errors }
+    @concert.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_interview
+    @concert = Concert.find(params[:id])
+    @concert.interview = nil
+    @concert.save
+    respond_to do |format|
+      format.js
     end
   end
 
