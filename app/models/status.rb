@@ -12,4 +12,7 @@
 
 class Status < ActiveRecord::Base
 	has_many :concerts
+
+	validates :name, presence: true
+	validates :color, presence: true
 end

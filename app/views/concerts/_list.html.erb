@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped">
+<table id="concerts" class="table table-bordered table-striped">
   <thead>
     <tr>
       <th><%= sort_link(@q, :venue_name) %></th>
@@ -13,6 +13,7 @@
       <% if current_user %>
         <th>Actions</th>
       <% end %>
+      <th>City</th>
     </tr>
   </thead>
   <tbody>
@@ -111,7 +112,7 @@
   </td>
 
   <td><% concert.bands.each do |b| %>
-    <%= b.name  %><%= "," unless concert.bands.last %>
+    <%= b.name %><%= ","  %>
     <% end %></td>
   <td class="text-center"><span class="status badge" style="background:<%= concert.status.color %>;"><%= concert.status.name %></span></td>
   <% if current_user %>
@@ -126,6 +127,7 @@
     <% end %>
   </td>
   <% end %>
+  <td><%= concert.venue.city %></td>
 </tr>
 <% end %>
 </tbody>

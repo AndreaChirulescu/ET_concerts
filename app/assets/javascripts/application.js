@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require jquery.minicolors
 //= require selectize
 //= require cocoon
+//= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
