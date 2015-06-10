@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :concerts
 
+  resources :bands
+
   get "update_photo_1/:id", to: "concerts#update_photo_1", as: "update_photo_1"
   get "destroy_photo_1/:id", to: "concerts#destroy_photo_1", as: "destroy_photo_1"
 

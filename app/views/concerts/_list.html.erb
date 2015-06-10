@@ -1,15 +1,15 @@
 <table id="concerts" class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th><%= sort_link(@q, :venue_name) %></th>
-      <th><%= sort_link(@q, :on_date) %></th>
+      <th>Venue name</th>
+      <th>On date</th>
       <th>Photo1</th>
       <th>Photo2</th>
       <th>Text1</th>
       <th>Text2</th>
       <th>Interview</th>
       <th>Band(s)</th>
-      <th class="text-center"><%= sort_link(@q, :status_name) %></th>
+      <th class="text-center">Status</th>
       <% if current_user %>
         <th>Actions</th>
       <% end %>

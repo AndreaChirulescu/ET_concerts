@@ -1,4 +1,8 @@
 <div class="page-header">
-  <h1>Concerts#new</h1>
+  <h1>Create new concert</h1>
 </div>
-<p>Find me in app/views/concerts/new.html.erb</p>
+<div class="row col-lg-10 col-lg-offset-1">
+  <%= form_for @concert do |f| %>
+    <%= render 'form', f: f %>
+  <% end %>
+</div>

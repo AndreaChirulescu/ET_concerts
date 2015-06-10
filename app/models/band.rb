@@ -11,4 +11,8 @@
 
 class Band < ActiveRecord::Base
 	has_and_belongs_to_many :concert, through: :bands_concerts
+	belongs_to :country
+
+	validates :name, presence: true
+	validates :country_id, presence: true
 end

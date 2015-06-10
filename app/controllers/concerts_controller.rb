@@ -7,6 +7,7 @@ class ConcertsController < ApplicationController
 
   def new
   	@concert = Concert.new
+    @concert.bands.build
   end
 
   def edit
@@ -132,7 +133,7 @@ class ConcertsController < ApplicationController
 
   private
   def concert_params
-  	params.require(:country).permit(:name, :alpha2, :alpha3, :photo1, :photo2, :text1, :text2)
+  	params.require(:concert).permit(:name, :alpha2, :alpha3, :photo1, :photo2, :text1, :text2)
   end
 
   def filtering_params(params)

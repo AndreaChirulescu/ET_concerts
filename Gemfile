@@ -39,6 +39,9 @@ gem 'selectize-rails'
 gem 'will_paginate'
 
 gem 'jquery-minicolors-rails'
+
+gem 'datatables-rails'
+gem 'ajax-datatables-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
