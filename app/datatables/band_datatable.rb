@@ -2,6 +2,7 @@ class BandDatatable < AjaxDatatablesRails::Base
   include AjaxDatatablesRails::Extensions::WillPaginate
 
   def_delegator :@view, :link_to
+  def_delegator :@view, :content_tag
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
@@ -21,10 +22,8 @@ class BandDatatable < AjaxDatatablesRails::Base
         record.id,
         record.name,
         record.country.name,
-        if v.current_user.admin?
-        link_to("Edit", v.edit_band_path(record.id), remote: true, class:"btn btn-sm btn-warning")
-        else
-          link_to("Show", v.band_path(record.id), remote: true, class:"btn btn-sm btn-default")
+        link_to(v.edit_band_path(record.id), remote: true, class:"btn btn-sm btn-warning") do
+          content_tag(:i, "Edit", class:"fa fa-pencil-square-o")
         end
       ]
     end

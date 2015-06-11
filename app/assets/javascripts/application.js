@@ -16,5 +16,6 @@
 //= require jquery.minicolors
 //= require selectize
 //= require cocoon
+//= require jquery.form-validator
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_tree .
