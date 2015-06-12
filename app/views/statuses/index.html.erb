@@ -1,35 +1,21 @@
 <div class="page-header">
   <h1>Statuses</h1>
 </div>
-<div class="row col-lg-10 col-lg-offset-1">
-  <table class="table table-striped">
+<div class="row">
+  <table class="table" id="statuses" data-source="<%= statuses_path(format: :json) %>">
     <thead>
-      <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Color</th>
-        <th>Actions</th>
-      </tr>
+        <th></th>
+        <th></th>
     </thead>
     <tbody>
-      <% @statuses.each do |status| %>
-      <tr>
-        <td><%= status.name %></td>
-        <td><div style="width:20px; height:20px; background-color: <%= status.color %>;"></div></td>
-        <td>
-        <%= link_to edit_status_path(status), remote: true, class: "btn btn-sm btn-warning" do %>
-          <i class="fa fa-pencil-square-o"> Edit</i>
-        <% end %>
-        <%= link_to status_path(status), method: :delete, class: "btn btn-sm btn-danger" do %>
-          <i class="fa fa-trash"> Delete</i>
-        <% end %>
-        </td>
-      </tr>
-      <% end %>
     </tbody>
   </table>
 </div>
-<div class="row col-lg-10 col-lg-offset-1">
-  <div class="form-group pull-right">
+<div class="row">
+  <div class="form-group pull-right" style="margin-top:15px;">
     <%= link_to new_status_path, remote: true, class: "btn btn-md btn-primary" do %>
       <i class="fa fa-plus-circle"> New</i>
     <% end %>

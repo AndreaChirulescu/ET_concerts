@@ -3,7 +3,11 @@ class StatusesController < ApplicationController
 	#before_action:
 
 	def index
-	  @statuses = Status.all
+		respond_to do |format|
+			format.html
+			format.js
+			format.json{ render json: StatusDatatable.new(view_context) }
+		end
 	end
 
 	def new
@@ -21,7 +25,7 @@ class StatusesController < ApplicationController
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render action: 'show', status: :created, location: @status }
         # added:
-        format.js   { render action: 'show', status: :created, location: @status }
+        format.js   { render action: 'index', status: :created, location: @status }
       else
         format.html { render action: 'new' }
         format.json { render json: @status.errors, status: :unprocessable_entity }
@@ -34,11 +38,10 @@ class StatusesController < ApplicationController
 	def update
 		respond_to do |format|
       if @status.update_attributes(status_params)
-				debugger
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render action: 'show', status: :created, location: @status }
         # added:
-        format.js   { render action: 'show', status: :created, location: @status }
+        format.js   { render action: 'index', status: :created, location: @status }
       else
         format.html { render action: 'edit' }
         format.json { render json: @status.errors, status: :unprocessable_entity }
@@ -49,22 +52,20 @@ class StatusesController < ApplicationController
 	end
 
 	def edit
-		#@status = Status.find(params[:id])
 		respond_to do |format|
 			format.js
 		end
 	end
 
 	def destroy
-		#@status = Status.find(params[:id])
-		if @status.destroy
-			redirect_to statuses_path
+		respond_to do |format|
+			if @status.destroy
+				format.js { render action: 'index', status: :ok, location: @status }
+			end
 		end
 	end
 
 	def show
-		#@status = Status.find(params[:id])
-
 		respond_to do |format|
 			format.html
 			format.js
