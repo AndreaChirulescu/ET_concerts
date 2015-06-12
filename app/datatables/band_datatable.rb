@@ -23,7 +23,10 @@ class BandDatatable < AjaxDatatablesRails::Base
         record.name,
         record.country.name,
         link_to(v.edit_band_path(record.id), remote: true, class:"btn btn-sm btn-warning") do
-          content_tag(:i, "Edit", class:"fa fa-pencil-square-o")
+          content_tag(:i, " Edit", class:"fa fa-pencil-square-o")
+        end,
+        link_to(v.band_path(record.id), method: :delete, remote: true, class: "btn btn-md btn-danger") do
+          content_tag(:i, " Delete", class: "fa fa-trash-o")
         end
       ]
     end

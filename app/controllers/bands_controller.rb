@@ -20,14 +20,14 @@ class BandsController < ApplicationController
   end
 
   def create
-    @band = band.new(band_params)
+    @band = Band.new(band_params)
 
     respond_to do |format|
       if @band.save
         format.html { redirect_to @band, notice: 'Band was successfully created.' }
         format.json { render action: 'show', status: :created, location: @band }
         # added:
-        format.js   { render action: 'show', status: :created, location: @band }
+        format.js   { render action: 'index', status: :created, location: @band }
       else
         format.html { render action: 'new' }
         format.json { render json: @band.errors, status: :unprocessable_entity }
@@ -40,11 +40,10 @@ class BandsController < ApplicationController
   def update
     respond_to do |format|
       if @band.update_attributes(band_params)
-				debugger
-        format.html { redirect_to @band, notice: 'Band was successfully created.' }
+        format.html { redirect_to @band, notice: 'Band was successfully updated.' }
         format.json { render action: 'show', status: :created, location: @band }
         # added:
-        format.js   { render action: 'show', status: :created, location: @band }
+        format.js   { render action: 'index', status: :created, location: @band }
       else
         format.html { render action: 'edit' }
         format.json { render json: @band.errors, status: :unprocessable_entity }
@@ -55,9 +54,11 @@ class BandsController < ApplicationController
   end
 
   def destroy
-    if @band.destroy
-			redirect_to bands_path
-		end
+    respond_to do |format|
+      if @band.destroy
+  			format.js { render action: 'index', status: :deleted, location: @band}
+  		end
+    end
   end
 
   def show
@@ -68,7 +69,7 @@ class BandsController < ApplicationController
   end
 
   private
-  def bands_params
+  def band_params
     params.require(:band).permit(:name, :country_id)
   end
 

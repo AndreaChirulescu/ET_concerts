@@ -1,30 +1,23 @@
-<script>
-$(document).ready(function(){
-  var table = $('table#bands').DataTable({
-        "ajax": $('table#bands').data('source'),
-        "displayLength": 25
-      });
-})
-</script>
 <div class="page-header">
   <h1>Bands</h1>
 </div>
-<div class="row col-lg-10 col-lg-offset-1">
-  <table class="table table-striped" id="bands" data-source="<%= bands_path(format: :json) %>">
+<div class="row">
+  <table class="table" id="bands" data-source="<%= bands_path(format: :json) %>">
     <thead>
-      <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Country</th>
-        <th>Edit</th>
-      </tr>
+        <th></th>
+        <th></th>
     </thead>
     <tbody>
     </tbody>
   </table>
 </div>
-<div class="col-lg-10 col-lg-offset-1" style="margin-top:15px;">
-  <%= link_to "New band", new_band_path, remote: true, class: "btn btn-md btn-primary pull-right" %>
+<div class="row" style="margin-top:15px;">
+  <%= link_to new_band_path, remote: true, class: "btn btn-md btn-primary pull-right" do %>
+    <i class="fa fa-plus-circle"> New band</i>
+  <% end %>
 </div>
 
 <div class="modal fade" id="band-modal">

@@ -1,2 +1,3 @@
 $("div#country-modal").html("<%= escape_javascript(render partial: 'countries/edit', object: @country) %>");
 $("div#country-modal").modal("show");
+$.validate();
