@@ -1,0 +1,3 @@
+$("div#venue-modal").html("<%= escape_javascript(render partial: 'venues/new', object: @venue) %>");
+$("div#venue-modal").modal("show");
+$.validate();

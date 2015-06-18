@@ -12,4 +12,5 @@
 
 class Venue < ActiveRecord::Base
 	has_many :concerts
+	belongs_to :country
 end

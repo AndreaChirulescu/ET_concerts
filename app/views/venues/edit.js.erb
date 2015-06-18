@@ -1,0 +1,4 @@
+
+$("div#venue-modal").html("<%= escape_javascript(render partial: 'venues/edit', object: @venue) %>");
+$("div#venue-modal").modal("show");
+$.validate();
