@@ -5,7 +5,7 @@ class VenueDatatable < AjaxDatatablesRails::Base
   def_delegator :@view, :content_tag
 
   def sortable_columns
-    @sortable_columns ||= ['venues.name']
+    @sortable_columns ||= ['venues.id', 'venues.name', 'countries.name']
   end
 
   def searchable_columns
@@ -18,7 +18,7 @@ class VenueDatatable < AjaxDatatablesRails::Base
       [
         record.id,
         record.name,
-        record.country_id,
+        record.country.name,
         link_to(v.edit_venue_path(record.id), remote: true, class: "btn btn-md btn-warning") do
           content_tag(:i, ' Edit', class: 'fa fa-pencil-square-o')
         end,

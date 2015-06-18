@@ -13,7 +13,7 @@ $ ->
       {data: '4' }
     ],
     columnDefs: [
-      { targets: 0, visible: false },
+      { targets: 0, visible: false },      
       { targets: 3, orderable: false },
       { targets: 4, orderable: false},
       { targets: 3, width: "5%" },

@@ -5,11 +5,11 @@ class CountryDatatable < AjaxDatatablesRails::Base
   def_delegator :@view, :content_tag
 
   def sortable_columns
-    @sortable_columns ||= ['countries.name']
+    @sortable_columns ||= ['countries.id','countries.name', 'countries.alpha2', 'countries.alpha3']
   end
 
   def searchable_columns
-    @searchable_columns ||= ['countries.name']
+    @searchable_columns ||= ['countries.name', 'countries.alpha2', 'countries.alpha3']
   end
 
   private

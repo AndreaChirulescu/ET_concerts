@@ -6,7 +6,7 @@ class BandDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['bands.name']
+    @sortable_columns ||= ['bands.name','bands.name', 'countries.name']
   end
 
   def searchable_columns

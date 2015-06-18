@@ -5,7 +5,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
   def_delegator :@view, :content_tag
 
   def sortable_columns
-    @sortable_columns ||= ['statuses.name']
+    @sortable_columns ||= ['statuses.id', 'statuses.name', 'statuses.color']
   end
 
   def searchable_columns
