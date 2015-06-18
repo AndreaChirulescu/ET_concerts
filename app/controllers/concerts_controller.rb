@@ -1,8 +1,12 @@
 class ConcertsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @q = Concert.sorted.ransack(params[:q])
-  	@concerts = @q.result.includes(:venue, :status).paginate(per_page: 10, page: params[:page])
+    #@q = Concert.sorted.ransack(params[:q])
+  	#@concerts = @q.result.includes(:venue, :status).paginate(per_page: 10, page: params[:page])
+    respond_to do |format|
+      format.html
+      format.json{ render json: ConcertDatatable.new(view_context) }
+    end
   end
 
   def new
@@ -40,7 +44,7 @@ class ConcertsController < ApplicationController
     @concert.photo1 = current_user.id
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -49,7 +53,7 @@ class ConcertsController < ApplicationController
     @concert.photo1 = nil
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -58,7 +62,7 @@ class ConcertsController < ApplicationController
     @concert.photo2 = current_user.id
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -67,7 +71,7 @@ class ConcertsController < ApplicationController
     @concert.photo2 = nil
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -76,7 +80,7 @@ class ConcertsController < ApplicationController
     @concert.text1 = current_user.id
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -85,7 +89,7 @@ class ConcertsController < ApplicationController
     @concert.text1 = nil
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -94,7 +98,7 @@ class ConcertsController < ApplicationController
     @concert.text2 = current_user.id
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -103,7 +107,7 @@ class ConcertsController < ApplicationController
     @concert.text2 = nil
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -112,7 +116,7 @@ class ConcertsController < ApplicationController
     @concert.interview = current_user.id
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 
@@ -121,7 +125,7 @@ class ConcertsController < ApplicationController
     @concert.interview = nil
     @concert.save
     respond_to do |format|
-      format.js
+      format.js { render action: 'index', status: :created, location: @concert }
     end
   end
 

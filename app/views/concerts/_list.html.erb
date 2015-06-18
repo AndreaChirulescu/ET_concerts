@@ -1,6 +1,7 @@
-<table id="concerts" class="table table-bordered table-striped">
+<table id="concerts" data-source="<%= concerts_path(format: :json) %>">
   <thead>
     <tr>
+      <th>Id</th>
       <th>Venue name</th>
       <th>On date</th>
       <th>Photo1</th>
@@ -8,127 +9,12 @@
       <th>Text1</th>
       <th>Text2</th>
       <th>Interview</th>
-      <th>Band(s)</th>
-      <th class="text-center">Status</th>
-      <% if current_user %>
-        <th>Actions</th>
-      <% end %>
-      <th>City</th>
+      <th>Bands</th>
+      <th>Status</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
-<% @concerts.each do |concert| %>
-<tr id="<%= concert.id %>">
-  <td><%= concert.venue.name %></td>
-  <td><%= concert.on_date %></td>
-  <td id="photo1" class="text-center">
-    <% if concert.photo1.nil? %>
-      <!-- if current user has already signed for photo2 text1 or text2 he can't sign to this -->
-      <% if [concert.photo2, concert.text1, concert.text2].include? current_user.id %>
-        <i class="fa fa-times fa-2x"></i>
-      <!-- else he can -->
-      <% else %>
-        <%= link_to update_photo_1_path(concert.id), remote: true do %>
-          <i class="icon fa fa-user fa-2x" style="color:green;"></i>
-        <% end %>
-      <% end %>
-    <% elsif concert.photo1 == current_user.id %>
-        <%= link_to destroy_photo_1_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:red;" data-content="<%= User.find(concert.photo1).email %>"></i>
-        <% end %>
-    <% else %>
-      <i class="icon fa fa-user fa-2x" data-content="<%= User.find(concert.photo1).email %>"></i>
-    <% end %>
-  </td>
-  <td id="photo2" class="text-center">
-    <% if concert.photo2.nil? %>
-      <!-- if current user has already signed for photo1 text1 or text2 he can't sign to this -->
-      <% if [concert.photo1, concert.text1, concert.text2].include? current_user.id %>
-        <i class="fa fa-times fa-2x"></i>
-      <!-- else he can -->
-      <% else %>
-        <%= link_to update_photo_2_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:green;"></i>
-        <% end %>
-      <% end %>
-    <% elsif concert.photo2 == current_user.id %>
-      <%= link_to destroy_photo_2_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:red;" data-content="<%= User.find(concert.photo2).email %>"></i>
-      <% end %>
-    <% else %>
-    <i class="icon fa fa-user fa-2x" data-content="<%= User.find(concert.photo2).email %>"></i>
-    <% end %>
-  </td>
-  <td id="text1" class="text-center">
-    <% if concert.text1.nil? %>
-      <!-- if current user has already signed for photo1 photo2 or text2 he can't sign to this -->
-      <% if [concert.photo1, concert.photo2, concert.text2].include? current_user.id %>
-        <i class="fa fa-times fa-2x"></i>
-      <!-- else he can -->
-      <% else %>
-        <%= link_to update_text_1_path(concert.id), remote: true do %>
-          <i class="icon fa fa-user fa-2x" style="color:green;"></i>
-        <% end %>
-      <% end %>
-    <% elsif concert.text1 == current_user.id %>
-      <%= link_to destroy_text_1_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:red;" data-content="<%= User.find(concert.text1).email %>"></i>
-      <% end %>
-    <% else %>
-      <i class="icon fa fa-user fa-2x" data-content="<%= User.find(concert.text1).email %>"></i>
-    <% end %>
-  </td>
-  <td id="text2" class="text-center">
-    <% if concert.text2.nil? %>
-      <!-- if current user has already signed for photo1 photo2 or text1 he can't sign to this -->
-      <% if [concert.photo1, concert.photo2, concert.text1].include? current_user.id %>
-        <i class="fa fa-times fa-2x"></i>
-      <!-- else he can-->
-      <% else %>
-        <%= link_to update_text_2_path(concert.id), remote: true do %>
-          <i class="icon fa fa-user fa-2x" style="color:green;"></i>
-        <% end %>
-      <% end %>
-    <% elsif %>
-      <%= link_to destroy_text_2_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:red;" data-content="<%= User.find(concert.text2).email %>"></i>
-      <% end %>
-    <% else %>
-    <i class="icon fa fa-user fa-2x" data-content="<%= User.find(concert.text2).email %>"></i>
-    <% end %>
-  </td>
-  <td id="interview" class="text-center">
-    <% if concert.interview.nil? %>
-      <%= link_to update_interview_path(concert.id), remote: true do %>
-        <i class="icon fa fa-user fa-2x" style="color:green;"></i>
-      <% end %>
-    <% elsif concert.interview == current_user.id %>
-      <%= link_to destroy_interview_path(concert.id), remote: true do %>
-      <i class="icon fa fa-user fa-2x" style="color:red;" data-content="<%= User.find(concert.interview).email %>"></i>
-      <% end %>
-    <% else %>
-    <i class="icon fa fa-user fa-2x" data-content="<%= User.find(concert.interview).email %>"></i>
-    <% end %>
-  </td>
-
-  <td><% concert.bands.each do |b| %>
-    <%= b.name %><%= ","  %>
-    <% end %></td>
-  <td class="text-center"><span class="status badge" style="background:<%= concert.status.color %>;"><%= concert.status.name %></span></td>
-  <% if current_user %>
-  <td>
-    <%= link_to edit_concert_path(concert.id), class: "btn btn-sm btn-warning" do %>
-      <i class="fa fa-pencil-square-o">&nbsp;Edit</i>
-    <% end %>
-    <% if current_user.admin? %>
-      <%= link_to concert_path(concert.id), method: :delete, class: "btn btn-sm btn-danger" do %>
-        <i class="fa fa-trash-o">&nbsp;Delete</i>
-      <% end %>
-    <% end %>
-  </td>
-  <% end %>
-  <td><%= concert.venue.city %></td>
-</tr>
-<% end %>
-</tbody>
+  </tbody>
 </table>

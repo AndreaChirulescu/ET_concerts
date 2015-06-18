@@ -1,1 +1,2 @@
-$("table").html("<%= escape_javascript(render 'concerts/list', collection: @concerts) %>");
+$('table#concerts').dataTable().fnDraw();
+$("i.icon").popover({'trigger': 'hover'})
