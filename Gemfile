@@ -45,6 +45,8 @@ gem 'ajax-datatables-rails'
 
 gem "jquery-form-validator-rails"
 
+gem 'jquery-ui-sass-rails'
+
 gem "thin"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

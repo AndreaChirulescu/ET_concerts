@@ -57,7 +57,6 @@ $ ->
       'asc'
     ]).draw()
   return
+  $("input.datepicker").datepicker();
 
-
-  $('select').selectize()
   return
