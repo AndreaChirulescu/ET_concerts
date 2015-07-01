@@ -13,10 +13,13 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
           <li><%= link_to "Concerts", concerts_path %></li>
-          <li><%= link_to "Countries", countries_path %></li>
-          <li><%= link_to "Statuses", statuses_path %></li>
-          <li><%= link_to "Venues", venues_path %></li>
-          <li><%= link_to "Bands", bands_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "My concerts", my_concerts_path %></li>
+            <li><%= link_to "Countries", countries_path %></li>
+            <li><%= link_to "Statuses", statuses_path %></li>
+            <li><%= link_to "Venues", venues_path %></li>
+            <li><%= link_to "Bands", bands_path %></li>
+          <% end %>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>

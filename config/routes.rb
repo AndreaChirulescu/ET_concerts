@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :bands
 
+  get 'my_concerts', to: "concerts#my_concerts", as: "my_concerts"
+
   get "update_photo_1/:id", to: "concerts#update_photo_1", as: "update_photo_1"
   get "destroy_photo_1/:id", to: "concerts#destroy_photo_1", as: "destroy_photo_1"
 

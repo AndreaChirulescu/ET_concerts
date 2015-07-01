@@ -18,7 +18,6 @@
 #
 
 class Concert < ActiveRecord::Base
-  #attr_accessible :bands_concerts
 
   has_and_belongs_to_many :bands, through: :bands_concerts, dependent: :destroy
   belongs_to :venue
@@ -26,5 +25,5 @@ class Concert < ActiveRecord::Base
 
   accepts_nested_attributes_for :bands, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
 
-  scope :sorted, -> { where("on_date >= ?", Date.today).order(on_date: "desc") }  
+  scope :sorted, -> { where("on_date >= ?", Date.today).order(on_date: "desc") }
 end

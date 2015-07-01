@@ -9,6 +9,13 @@ class ConcertsController < ApplicationController
     end
   end
 
+  def my_concerts
+    respond_to do |format|
+      format.html
+      format.json{ render json: MyConcertDatatable.new(view_context)}
+    end
+  end
+
   def new
   	@concert = Concert.new
     @concert.bands.build
@@ -29,7 +36,7 @@ class ConcertsController < ApplicationController
   end
 
   def update
-  	@concert = concert.find(params[:id])
+  	@concert = Concert.find(params[:id])
 
   	if @concert.update_attributes(concert_params)
       flash[:notice] = "concert successfuly updated!"

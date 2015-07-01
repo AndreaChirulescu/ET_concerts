@@ -14,7 +14,7 @@ $(document).ready(function(){
 });
 </script>
 <div class="page-header">
-  <h1>Concerts</h1>
+  <h1>My Concerts</h1>
 </div>
 <div class="col-lg-7 col-md-6 col-sm-12 pull-left">
   <%= link_to "New concert", new_concert_path, class: "btn btn-md btn-primary" %>
@@ -31,7 +31,27 @@ $(document).ready(function(){
   </div>
 </div>
 <div class="row col-lg-12 col-md-12 col-sm-12">
-  <%= render 'concerts/list', collection: @concerts %>
+  <table id="concerts" data-source="<%= my_concerts_path(format: :json) %>">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Venue name</th>
+        <th>On date</th>
+        <th>Photo1</th>
+        <th>Photo2</th>
+        <th>Text1</th>
+        <th>Text2</th>
+        <th>Interview</th>
+        <th>Bands</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
 </div>
 <div class="col-lg-12 text-right">
   <%#= will_paginate @concerts %>
