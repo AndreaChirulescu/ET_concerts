@@ -25,11 +25,16 @@ class ConcertsController < ApplicationController
   	@concert = Concert.find(params[:id])
   end
 
+  def show
+    @concert = Concert.find(params[:id])
+  end
+
   def create
   	@concert = Concert.new(concert_params)
   	if @concert.save
   	  flash[:notice] = "concert successfuly created!"
       redirect_to concerts_path
+      ConcertMailer.global_notification(@concert).deliver_later
     else
     	render :new
   	end
@@ -50,6 +55,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.photo1 = current_user.id
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -59,6 +65,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.photo1 = nil
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -68,6 +75,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.photo2 = current_user.id
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -77,6 +85,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.photo2 = nil
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -86,6 +95,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.text1 = current_user.id
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -95,6 +105,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.text1 = nil
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -104,6 +115,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.text2 = current_user.id
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -113,6 +125,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.text2 = nil
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -122,6 +135,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.interview = current_user.id
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
@@ -131,6 +145,7 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.interview = nil
     @concert.save
+    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end

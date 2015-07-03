@@ -25,14 +25,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
-
 gem 'annotate'
+
+gem 'eventmachine'
 
 gem 'devise'
 
 gem 'cocoon'
 
 gem 'ransack'
+
+gem 'mailcatcher', '>= 0.5.10'
 
 gem 'selectize-rails'
 
@@ -46,8 +49,6 @@ gem 'ajax-datatables-rails'
 gem "jquery-form-validator-rails"
 
 gem 'jquery-ui-sass-rails'
-
-gem "thin"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
