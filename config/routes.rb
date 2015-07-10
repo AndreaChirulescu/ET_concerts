@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get "update_interview/:id", to: "concerts#update_interview", as: "update_interview"
   get "destroy_interview/:id", to: "concerts#destroy_interview", as: "destroy_interview"
 
+  resources :users, only:[:index, :update]
+
   resources :statuses
   #get "update_status/:id", to: "statuses#update", as: "update_status"
   #get "create_status", to: "statuses#create", as: "create_status"
