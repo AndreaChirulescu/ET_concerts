@@ -18,12 +18,16 @@
 #
 
 class Concert < ActiveRecord::Base
-
-  has_and_belongs_to_many :bands, through: :bands_concerts, dependent: :destroy
+  has_many :concert_lists
+  has_many :bands, :through => :concert_lists
   belongs_to :venue
   belongs_to :status
 
-  accepts_nested_attributes_for :bands, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
+  #accepts_nested_attributes_for :bands, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
 
   scope :sorted, -> { where("on_date >= ?", Date.today).order(on_date: "desc") }
+
+  validates :venue_id, :presence => true
+  validates :on_date, :presence => true
+  validates :status_id, :presence => true
 end

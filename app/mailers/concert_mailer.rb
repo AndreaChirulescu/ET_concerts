@@ -35,7 +35,7 @@ class ConcertMailer < ActionMailer::Base
     @users = User.all
     mail(to: @users, subject:"Concert added",
     body: "Hi, there has been added new concert!
-    Name: #{@concert.name}
+    Name: #{@concert.venue.name}
     Date: #{@concert.on_date}
     Status: #{@concert.status.name}
     Bands: #{@concert.bands}")

@@ -4,6 +4,13 @@ $(document).ready(function(){
   $("select").selectize();
 });
 </script>
+<% if @concert.errors.any? %>
+<ul>
+  <% @concert.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
 <div class="form-group">
   <%= f.label :venue_id %>
   <%= f.collection_select :venue_id, Venue.all, :id, :name, {include_blank: true}, placeholder: "Select venue", class: "form-control" %>
@@ -19,15 +26,17 @@ $(document).ready(function(){
 <div class="panel panel-default">
   <div class="panel-heading">Bands</div>
   <div class="panel-body">
+    <%= f.fields_for :concert_list do |b| %>
       <div class="form-group">
         <%= label_tag "Add band" %>
-        <%= collection_select :band_id, nil, Band.all, :id, :name, class: "form-control autocomplete" %>
-        <%#= c.select :band_id, Band.all, {include_blank: true}, placeholder: "Select band", class: "form-control" %>
+        <%= b.collection_select :band_id, Band.all, :id, :name, class: "form-control autocomplete" %>
+        <%= b.hidden_field :concert_id %>
       </div>
       <div class="form-group">
         <%= link_to "New band", "#", class: "btn btn-sm btn-success pull-left" %>
-        <%= link_to "Add band", "#", class: "btn btn-sm btn-primary pull-right" %>
+        <%= b.submit "Add band", class: "btn btn-sm btn-primary pull-right" %>
       </div>
+      <% end %>
       <div class="col-lg-12">
         <table class="table table-stripped">
           <thead>

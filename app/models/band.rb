@@ -10,7 +10,8 @@
 #
 
 class Band < ActiveRecord::Base
-	has_and_belongs_to_many :concert, through: :bands_concerts
+	has_many :concert_lists
+	has_many :concerts, through: :concert_lists
 	belongs_to :country
 
 	validates :name, presence: true

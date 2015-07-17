@@ -47,7 +47,7 @@ class ConcertDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    Concert.joins(:venue).includes(:bands).references(:band).sorted.paginate(per_page: 10, page: params[:page])
+    Concert.joins(:venue).includes(:concert_lists).includes(:bands).references(:band).sorted.paginate(per_page: 10, page: params[:page])
   end
 
   def v

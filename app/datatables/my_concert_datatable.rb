@@ -47,7 +47,7 @@ class MyConcertDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    Concert.joins(:venue).includes(:bands).references(:band).sorted.
+    Concert.joins(:venue).includes(:concert_lists).includes(:bands).references(:band).sorted.
     where("? in (text1, text2, photo1, photo2, interview)", v.current_user.id).paginate(per_page: 10, page: params[:page])
   end
 
