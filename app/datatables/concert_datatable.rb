@@ -160,7 +160,7 @@ class ConcertDatatable < AjaxDatatablesRails::Base
   end
 
   def edit_link(concert)
-      link_to v.edit_concert_path(concert.id), remote: true, class: "btn btn-sm btn-warning" do
+      link_to v.edit_concert_path(concert.id), class: "btn btn-sm btn-warning" do
         content_tag(:i, " Edit", class: "fa fa-pencil-square-o")
       end
   end

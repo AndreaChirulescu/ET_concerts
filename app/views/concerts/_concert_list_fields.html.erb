@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= f.hidden_field :concert_id, value: @concert.id %>
+    <%= f.select(:band_id, Band.pluck(:name, :id), :prompt => 'Select band') %>
+  </td>
+  <td>
+    <%= link_to_remove_association "remove band", f %>
+  </td>
+</tr>

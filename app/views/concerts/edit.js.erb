@@ -1,32 +1,4 @@
 $("div.modal").html("<%= escape_javascript(render "concerts/edit") %>")
-$('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-    if(index==1) {
-      // Make sure we entered the venue, date & status
-      if(!$('#concert_venue_id').val()) {
-        $("#concert_venue_id").parent().addClass("has-error");
-        //alert('You must enter venue');
-        return false;
-      }
-
-      if(!$("#concert_status_id").val()){
-        $("#concert_status_id").parent().addClass("has-error");
-        return false;
-      }
-
-      if($('#concert_venue_id').val() && $("#concert_status_id").val())
-      {
-        $("#rootwizard").find("form.edit_concert").submit()
-      }
-
-    }
-
-  }, onTabShow: function(tab, navigation, index) {
-    var $total = navigation.find('li').length;
-    var $current = index+1;
-    var $percent = ($current/$total) * 100;
-    $('#rootwizard').find('div.progress-bar').attr("aria-valuenow", $percent).css("width", $percent + "%");
-    console.log($percent.toString())
-}});
 
 $("div.modal").modal('show');
 

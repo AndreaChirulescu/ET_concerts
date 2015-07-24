@@ -1,30 +1,33 @@
 class ConcertsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    #@q = Concert.sorted.ransack(params[:q])
-  	#@concerts = @q.result.includes(:venue, :status).paginate(per_page: 10, page: params[:page])
+    # @q = Concert.sorted.ransack(params[:q])
+    # @concerts = @q.result.includes(:venue, :status).paginate(per_page: 10, page: params[:page])
     respond_to do |format|
       format.html
-      format.json{ render json: ConcertDatatable.new(view_context) }
+      format.json { render json: ConcertDatatable.new(view_context) }
     end
   end
 
   def my_concerts
     respond_to do |format|
       format.html
-      format.json{ render json: MyConcertDatatable.new(view_context)}
+      format.json { render json: MyConcertDatatable.new(view_context) }
     end
   end
 
   def new
-  	@concert = Concert.new
+    @concert = Concert.new
+    @concert.concert_lists.new
     respond_to do |format|
       format.js
+      format.html
     end
   end
 
   def edit
-  	@concert = Concert.find(params[:id])
+    @concert = Concert.find(params[:id])
+    
   end
 
   def show
@@ -32,53 +35,44 @@ class ConcertsController < ApplicationController
   end
 
   def create
-  	@concert = Concert.new(concert_params)
-      respond_to do |format|
-        if @concert.save
-          format.js { render action: 'edit_bands', status: :created, location: @concert }
-          #  ConcertMailer.global_notification(@concert).deliver_later
-        else
-          format.js   { render json: @concert.errors, status: :unprocessable_entity }
-        end
+    @concert = Concert.new(concert_params)
+    respond_to do |format|
+      if @concert.save
+        format.js { render action: 'show', status: :created, location: @concert }
+        #  ConcertMailer.global_notification(@concert).deliver_later
+        format.html { render 'index' }
+      else
+        format.js   { render json: @concert.errors, status: :unprocessable_entity }
+        format.html { render @concert.errors }
       end
-
-
+    end
   end
 
   def update
-  	@concert = Concert.find(params[:id])
-      respond_to do |format|
-        if @concert.update_attributes(concert_params)
-          format.js { render action: 'edit_bands', status: :created }
-        else
-          format.js {render json: @concert.errors, status: :unprocessable_entity }
-        end
+    @concert = Concert.find(params[:id])
+    #respond_to do |format|
+    #  if @concert.update_attributes(concert_params)
+    #    debugger
+    #    # format.js { render action: 'show', status: :created, location: @concert }
+    #    format.js   { render action: 'index', status: :created, location: @status }
+    #  else
+    #    format.js { render json: @concert.errors, status: :unprocessable_entity }
+    #  end
+    # end
+    debugger
+      if @concert.update_attributes(concert_params)
+       flash[:notice] = "concert successfuly updated!"
+       redirect_to concerts_path
+      else
+       render :edit
       end
-  	#if @concert.update_attributes(concert_params)
+
+    # if @concert.update_attributes(concert_params)
     #  flash[:notice] = "concert successfuly updated!"
     #  redirect_to concerts_path
-    #else
+    # else
     #  render :edit
-    #end
-  end
-
-  def edit_bands    
-    @concert = Concert.find(params[:id])
-    @concert_list = ConcertList.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def add_band
-    @concert_list = ConcertList.new(concert_list_params)
-    respond_to do |format|
-      if @concert_list.save
-        format.js
-      else
-        format.js { render json: @concert_list.errors, status: :unprocessable_entity }
-      end
-    end
+    # end
   end
 
   def update_photo_1
@@ -182,21 +176,19 @@ class ConcertsController < ApplicationController
   end
 
   def destroy
-  	@concert = concert.find(params[:id]).destroy
-    flash[:notice] = "concert successfuly deleted"
+    @concert = concert.find(params[:id]).destroy
+    flash[:notice] = 'concert successfuly deleted'
     redirect_to countries_path
   end
 
   private
+
   def concert_params
-  	params.require(:concert).permit(:venue_id, :on_date, :status_id, :user_id, :photo1, :photo2, :text1, :text2, :interview)
+    params.require(:concert).permit(:venue_id, :on_date, :status_id, :user_id, :photo1, :photo2, :text1, :text2, :interview,
+                                    concert_lists_attributes: [:id, :concert_id, :band_id, :_destroy])
   end
 
   def filtering_params(params)
     params.slice(:sorted, :status)
-  end
-
-  def concert_list_params
-    params.require(:concert_list).permit(:concert_id, :band_id)
   end
 end

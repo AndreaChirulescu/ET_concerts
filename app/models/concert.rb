@@ -25,7 +25,7 @@ class Concert < ActiveRecord::Base
 
   #accepts_nested_attributes_for :bands, reject_if: lambda { |a| a[:content].blank? }, allow_destroy: true
 
-  accepts_nested_attributes_for :concert_lists, reject_if: lambda { |a| a[:concent].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :concert_lists, allow_destroy: true
 
   scope :sorted, -> { where("on_date >= ?", Date.today) }
 
