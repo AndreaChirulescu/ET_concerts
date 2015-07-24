@@ -72,4 +72,5 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+  gem 'capistrano-postgresql'
 end
