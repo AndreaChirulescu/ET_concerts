@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: concert_bands
+#
+#  id         :integer          not null, primary key
+#  concert_id :integer
+#  band_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  concert_id: 1
+  band_id: 1
+
+two:
+  concert_id: 1
+  band_id: 1

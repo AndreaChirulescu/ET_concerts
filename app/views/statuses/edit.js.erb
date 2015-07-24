@@ -1,0 +1,7 @@
+
+$("div#status-modal").html("<%= escape_javascript(render partial: 'statuses/edit', object: @status) %>");
+$("div#status-modal").modal("show");
+$('input.colorpicker').minicolors({
+  theme: 'bootstrap'
+});
+$.validate();

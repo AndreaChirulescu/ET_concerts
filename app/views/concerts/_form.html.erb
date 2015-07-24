@@ -1,0 +1,49 @@
+<% if @concert.errors.any? %>
+<ul>
+  <% @concert.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+<div class="form-group">
+  <%= f.label :venue_id %>
+  <%= f.collection_select :venue_id, Venue.all, :id, :name, {include_blank: true}, placeholder: "Select venue", class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label :on_date %>
+  <%= f.date_select :on_date, class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label :status_id %>
+  <%= f.collection_select :status_id, Status.all, :id, :name, {include_blank: true}, placeholder: "Select status", class: "form-control" %>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">Bands</div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Band</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <%= f.fields_for :concert_lists do |b| %>
+            <%= render "concert_list_fields", f: b %>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+    <%#= link_to_add_association 'add band', f, :concert_lists %>
+    <%= link_to_add_association f, :concert_lists, :"data-association-insertion-node" => "tbody", :"data-association-insertion-method" => "append", :partial => "concert_list_fields", :class => "btn btn-md btn-warning" do %>
+      <i class="fa fa-plus-circle"></i> Add band
+    <% end %>
+
+    <div class="row col-lg-12">
+      <div class="form-group pull-right">
+        <%= f.submit "Save", class: "btn btn-md btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

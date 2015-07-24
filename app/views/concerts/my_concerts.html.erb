@@ -1,0 +1,58 @@
+<script>
+$(document).ready(function(){
+  $('.panel-heading span.clickable').on('click', function(e) {
+  if ($(this).hasClass('panel-collapsed')) {
+    $(this).parents('.panel').find('.panel-body').slideDown();
+    $(this).removeClass('panel-collapsed');
+    $(this).find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+  } else {
+    $(this).parents('.panel').find('.panel-body').slideUp();
+    $(this).addClass('panel-collapsed');
+    $(this).find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+  }
+});
+});
+</script>
+<div class="page-header">
+  <h1>My Concerts</h1>
+</div>
+<div class="col-lg-7 col-md-6 col-sm-12 pull-left">
+  <%= link_to "New concert", new_concert_path, class: "btn btn-md btn-primary" %>
+</div>
+<div class="col-lg-3 col-md-5 col-sm-12 pull-right">
+  <div class="panel panel-default">
+    <div class="panel-heading">Legend <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span></div>
+    <div class="panel-body">
+      <div class="form-group"><i class="icon fa fa-user" style="color:green;">&nbsp;Available</i></div>
+      <div class="form-group"><i class="icon fa fa-user" style="color:red;">&nbsp;You already signed to this</i></div>
+      <div class="form-group"><i class="icon fa fa-user">&nbsp;Someone already sign to this</i></div>
+      <div class="form-group"><i class="fa fa-times">&nbsp;You can't sign to this</i></div>
+    </div>
+  </div>
+</div>
+<div class="row col-lg-12 col-md-12 col-sm-12">
+  <table id="concerts" data-source="<%= my_concerts_path(format: :json) %>">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Venue name</th>
+        <th>On date</th>
+        <th>Photo1</th>
+        <th>Photo2</th>
+        <th>Text1</th>
+        <th>Text2</th>
+        <th>Interview</th>
+        <th>Bands</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+</div>
+<div class="col-lg-12 text-right">
+  <%#= will_paginate @concerts %>
+</div>

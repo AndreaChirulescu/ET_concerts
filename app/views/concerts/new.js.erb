@@ -1,0 +1,5 @@
+$("div.modal").html("<%= escape_javascript(render "concerts/new") %>")
+
+$("div.modal").modal('show');
+
+$("select").selectize();

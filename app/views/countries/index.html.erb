@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>Countries</h1>
+</div>
+<div class="row">
+  <table class="table" id="countries" data-source="<%= countries_path(format: :json) %>">
+    <thead>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Alpha2</th>
+      <th>Alpha3</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div class="row" style="margin-top:15px;">
+  <%= link_to new_country_path, remote: true, class: "btn btn-md btn-primary pull-right" do %>
+    <i class="fa fa-plus-circle"> New country</i>
+  <% end %>
+</div>
+
+<div class="modal fade" id="country-modal">
+</div><!-- /.mod

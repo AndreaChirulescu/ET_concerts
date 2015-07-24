@@ -1,0 +1,26 @@
+<%= form_for @concert.concert_lists.new, url: edit_bands_path, remote: true do |f| %>
+  <div class="form-group">
+    <%= f.hidden_field :concert_id, value: @concert.id %>
+    <%= f.collection_select :band_id, Band.all, :id, :name, class: "form-control autocomplete" %>
+  </div>
+  <div class="form-group">
+    <%= link_to "Add band", add_band_path, class: "btn btn-sm btn-primary", remote: true, method: :post %>
+  </div>
+<% end %>
+
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @concert.bands.each do |band| %>
+    <tr>
+      <td><%= band.name %></td>
+      <td><%= band.country.name if band.country %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

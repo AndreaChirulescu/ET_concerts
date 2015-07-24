@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Venues</h1>
+</div>
+<div class="row">
+  <table class="table" id="venues" data-source="<%= venues_path(format: :json) %>">
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="form-group pull-right" style="margin-top:15px;">
+    <%= link_to new_venue_path, remote: true, class: "btn btn-md btn-primary" do %>
+      <i class="fa fa-plus-circle"> New</i>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal fade" id="venue-modal">
+</div><!-- /.mod
