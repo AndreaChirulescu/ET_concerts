@@ -6,6 +6,7 @@ $ ->
     processing: true,
     serverSide: true,
     ajax: $('table#concerts').data('source'),
+    order: [[ 2, "asc" ]]
     deferRender: true,
     displayLength: 10,
     columns: [

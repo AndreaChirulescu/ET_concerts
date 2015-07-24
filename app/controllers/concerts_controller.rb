@@ -18,7 +18,9 @@ class ConcertsController < ApplicationController
 
   def new
   	@concert = Concert.new
-    @bands = @concert.concert_lists.build
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -31,23 +33,51 @@ class ConcertsController < ApplicationController
 
   def create
   	@concert = Concert.new(concert_params)
-  	if @concert.save
-  	  flash[:notice] = "concert successfuly created!"
-      redirect_to concerts_path
-      ConcertMailer.global_notification(@concert).deliver_later
-    else
-    	render :new
-  	end
+      respond_to do |format|
+        if @concert.save
+          format.js { render action: 'edit_bands', status: :created, location: @concert }
+          #  ConcertMailer.global_notification(@concert).deliver_later
+        else
+          format.js   { render json: @concert.errors, status: :unprocessable_entity }
+        end
+      end
+
+
   end
 
   def update
   	@concert = Concert.find(params[:id])
+      respond_to do |format|
+        if @concert.update_attributes(concert_params)
+          format.js { render action: 'edit_bands', status: :created }
+        else
+          format.js {render json: @concert.errors, status: :unprocessable_entity }
+        end
+      end
+  	#if @concert.update_attributes(concert_params)
+    #  flash[:notice] = "concert successfuly updated!"
+    #  redirect_to concerts_path
+    #else
+    #  render :edit
+    #end
+  end
 
-  	if @concert.update_attributes(concert_params)
-      flash[:notice] = "concert successfuly updated!"
-      redirect_to concerts_path
-    else
-      render :edit
+  def edit_bands    
+    @concert = Concert.find(params[:id])
+    @concert_list = ConcertList.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def add_band
+    @concert_list = ConcertList.new(concert_list_params)
+    respond_to do |format|
+      if @concert_list.save
+        format.js
+      else
+        format.js { render json: @concert_list.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -135,20 +165,20 @@ class ConcertsController < ApplicationController
     @concert = Concert.find(params[:id])
     @concert.interview = current_user.id
     @concert.save
-    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
+    ConcertMailer.assign(@concert).deliver_later
   end
 
   def destroy_interview
     @concert = Concert.find(params[:id])
     @concert.interview = nil
     @concert.save
-    ConcertMailer.assign(@concert).deliver_later
     respond_to do |format|
       format.js { render action: 'index', status: :created, location: @concert }
     end
+    ConcertMailer.assign(@concert).deliver_later
   end
 
   def destroy
@@ -159,11 +189,14 @@ class ConcertsController < ApplicationController
 
   private
   def concert_params
-  	params.require(:concert).permit(:venue_id, :on_date, :status_id,
-    :photo1, :photo2, :text1, :text2, :interview, :concert_lists)
+  	params.require(:concert).permit(:venue_id, :on_date, :status_id, :user_id, :photo1, :photo2, :text1, :text2, :interview)
   end
 
   def filtering_params(params)
     params.slice(:sorted, :status)
+  end
+
+  def concert_list_params
+    params.require(:concert_list).permit(:concert_id, :band_id)
   end
 end
